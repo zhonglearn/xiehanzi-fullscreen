@@ -1,0 +1,70 @@
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.2/dist/hanzi-writer.min.js"></script>
+    <title>Writing</title>
+    <script>
+      let chars = [];
+
+      function anim(index){
+        if(!chars[index]){
+          index = 0;
+          for (let i = 0; i < chars.length; i++) {
+            chars[i].hideCharacter();
+          }
+        };
+
+        chars[index].animateCharacter({
+            onComplete: function() {
+              setTimeout(function(){anim(index+1)}, 500);
+            }
+          });
+      }
+
+      function ready() {
+
+
+        {{#charlist}}
+
+          let writer{{id}} = HanziWriter.create(
+            "character-target-div-{{id}}",
+            "{{character}}",
+            {
+              width: {{size}},
+              height: {{size}},
+              padding: 5,
+              showOutline: true,
+              strokeAnimationSpeed: 1.5,
+              delayBetweenStrokes: 300,
+              radicalColor: "#337ab7",
+            }
+          );
+          writer{{id}}.hideCharacter();
+
+          chars.push(writer{{id}});
+        {{/charlist}}
+
+        anim(0)
+
+      }
+
+      document.addEventListener("DOMContentLoaded", ready);
+    </script>
+  </head>
+  <body style="background: rgb(255, 232, 130); margin: 0">
+    <div
+      style="
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        height: 100vh;
+      "
+    >
+      <div style="display: flex; justify-content: center">
+        {{#charlist}}
+        <div id="character-target-div-{{id}}" style="width: fit-content"></div>
+        {{/charlist}}
+      </div>
+      <h2><center>{{character}}</center></h2>
+    </div>
+  </body>
+</html>
