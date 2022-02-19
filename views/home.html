@@ -1,0 +1,70 @@
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.2/dist/hanzi-writer.min.js"></script>
+    <title>Writing</title>
+    <style>
+      input {
+        background-color: powderblue;
+        padding: 15px;
+        border: none;
+        border-radius: 20px;
+        margin: 20px 0;
+      }
+
+      form {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        border-radius: 30px;
+        background: #ffcf91;
+        padding: 20px 180px;
+        box-shadow: 2px 2px 13px red;
+        margin: 40px;
+      }
+
+      .container {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        height: 100vh;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body style="background: rgb(255, 232, 130); margin: 0">
+    <div class="container">
+      <h1>大家好</h1>
+      <p>
+        This website uses Hanzi Writer<br />It plays in loop the character's
+        animation in order to copy the strokes.<br />You also can input multiple
+        characters to compare them.
+      </p>
+
+      <form action="/" method="get">
+        <label for="word">Hanzi(s):</label>
+        <input id="word" name="word" placeholder="打汉字" type="text" />
+        <label for="hsk">HSK Level (if no Hanzi):</label>
+        <input
+          id="hsk"
+          name="hsk"
+          placeholder="1-7"
+          step="1"
+          min="1"
+          max="7"
+          type="number"
+        />
+        <div>
+          <input
+            id="simultaneous"
+            name="simultaneous"
+            value="1"
+            type="checkbox"
+          />
+          <label for="simultaneous">Play characters simultaneously:</label>
+        </div>
+        <input type="submit" value="Start studying" />
+      </form>
+    </div>
+  </body>
+</html>

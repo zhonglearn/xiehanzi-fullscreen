@@ -1,9 +1,22 @@
 <html>
   <head>
     <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.2/dist/hanzi-writer.min.js"></script>
-    <title>Writing</title>
+    <title>Writing {{character}}</title>
+    <style>
+      input {
+        background-color: #ffc65f;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        border: none;
+      }
+    </style>
+
     <script>
+
       let chars = [];
+      let size = window.innerWidth / ({{charamt}} + 1.2/{{charamt}});
+
 
       function anim(index){
         if(!chars[index]){
@@ -15,7 +28,7 @@
 
         chars[index].animateCharacter({
             onComplete: function() {
-              setTimeout(function(){anim(index+1)}, 500);
+              setTimeout(function(){anim(index+1)}, 150);
             }
           });
       }
@@ -29,8 +42,8 @@
             "character-target-div-{{id}}",
             "{{character}}",
             {
-              width: {{size}},
-              height: {{size}},
+              width: size,
+              height: size,
               padding: 5,
               showOutline: true,
               strokeAnimationSpeed: 1.5,
@@ -39,11 +52,16 @@
             }
           );
           writer{{id}}.hideCharacter();
+          {{#simultaneous}}
+             writer{{id}}.loopCharacterAnimation();
+          {{/simultaneous}}
 
           chars.push(writer{{id}});
         {{/charlist}}
 
-        anim(0)
+        {{^simultaneous}}
+          anim(0)
+        {{/simultaneous}}
 
       }
 
@@ -64,7 +82,17 @@
         <div id="character-target-div-{{id}}" style="width: fit-content"></div>
         {{/charlist}}
       </div>
-      <h2><center>{{character}}</center></h2>
+      <center>
+        <form action="/" method="get">
+          <input
+            name="word"
+            placeholder="打汉字"
+            type="text"
+            value="{{character}}"
+          />
+        </form>
+        <h2>{{label}}</h2>
+      </center>
     </div>
   </body>
 </html>
