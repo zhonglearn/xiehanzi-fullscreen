@@ -4,5 +4,8 @@
     "hanzi-writer": "^3.3.0",
     "mustache-express": "^1.3.2",
     "pug": "^3.0.2"
+  },
+  "scripts": {
+    "start": "node index.js"
   }
 }

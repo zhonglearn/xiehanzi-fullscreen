@@ -15,36 +15,42 @@ app.get("/", function (req, res) {
   if (!req.query.hsk && !req.query.word) {
     return res.render("home");
   }
-
-  let simultaneous = req.query.simultaneous == true || false;
-  let hsklabel = "";
+  let label = "";
   let deck = req.query.hsk || "1";
-  let characters = fs.readFileSync("./hsk/HSK" + deck + ".txt", {
-    encoding: "utf8",
-  });
-  if (req.query.hsk) {
-    hsklabel = "HSK" + deck + " (" + characters.length + " words)";
+  let characters, character, charinfo;
+
+  if (req.query.word) {
+    character = req.query.word;
+  } else if (req.query.hsk) {
+    try {
+      characters = fs.readFileSync("./hsk/HSK " + deck + ".tsv", {
+        encoding: "utf8",
+      });
+
+      characters = characters.split(/\n/);
+      characters = characters[Math.floor(Math.random() * characters.length)];
+      character = characters.split(/\t/)[0];
+
+      charinfo = characters.split(/\t/)[2] + " - " + characters.split(/\t/)[3];
+
+      label = "HSK" + deck + " (" + characters.length + " words)";
+    } catch (e) {
+      return res.render("home");
+    }
   }
-
-  characters = characters.split(/\n/);
-  console.log(characters.length);
-
-  let character =
-    req.query.word || characters[Math.floor(Math.random() * characters.length)];
-
   let charlist = [];
-  let charamt = 0;
 
-  for (charamt = 0; charamt < character.split("").length; charamt++) {
+  for (let charamt = 0; charamt < character.split("").length; charamt++) {
     charlist.push({ id: charamt, character: character.split("")[charamt] });
   }
 
   res.render("master", {
+    simultaneous: req.query.simultaneous == true || false,
     character,
-    label: hsklabel,
-    simultaneous,
+    label,
     charlist,
-    charamt,
+    charinfo,
+    charamt: charlist.length,
   });
 });
-app.listen(3000);
+app.listen(process.env.PORT || 3000);
