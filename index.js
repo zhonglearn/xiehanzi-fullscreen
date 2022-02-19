@@ -29,7 +29,8 @@ app.get("/", function (req, res) {
 
       characters = characters.split(/\n/);
       characters = characters[Math.floor(Math.random() * characters.length)];
-      character = characters.split(/\t/)[0];
+
+      character = characters.split(/\t/)[req.query.traditional == true ? 0 : 1];
 
       charinfo = characters.split(/\t/)[2] + " - " + characters.split(/\t/)[3];
 

@@ -2,6 +2,12 @@
   <head>
     <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.2/dist/hanzi-writer.min.js"></script>
     <title>Writing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap"
+      rel="stylesheet"
+    />
     <style>
       input {
         background-color: powderblue;
@@ -11,6 +17,12 @@
         margin: 20px 0;
       }
 
+      body {
+        font-family: "Roboto", sans-serif;
+        background: rgb(255, 232, 130);
+        margin: 0;
+      }
+
       form {
         display: flex;
         justify-content: center;
@@ -18,7 +30,7 @@
         align-items: center;
         border-radius: 30px;
         background: #ffcf91;
-        padding: 20px 180px;
+        padding: 20px 50px;
         box-shadow: 2px 2px 13px red;
         margin: 40px;
       }
@@ -30,9 +42,19 @@
         height: 100vh;
         align-items: center;
       }
+
+      .form {
+        padding: 20px;
+      }
+
+      .separator {
+        background-color: #c5a070;
+        padding: 2px;
+        margin: 5px;
+      }
     </style>
   </head>
-  <body style="background: rgb(255, 232, 130); margin: 0">
+  <body>
     <div class="container">
       <h1>大家好</h1>
       <p>
@@ -42,26 +64,44 @@
       </p>
 
       <form action="/" method="get">
-        <label for="word">Hanzi(s):</label>
-        <input id="word" name="word" placeholder="打汉字" type="text" />
-        <label for="hsk">HSK Level (if no Hanzi):</label>
-        <input
-          id="hsk"
-          name="hsk"
-          placeholder="1-7"
-          step="1"
-          min="1"
-          max="7"
-          type="number"
-        />
-        <div>
-          <input
-            id="simultaneous"
-            name="simultaneous"
-            value="1"
-            type="checkbox"
-          />
-          <label for="simultaneous">Play characters simultaneously:</label>
+        <div style="display: flex; justify-content: center">
+          <div class="form">
+            <h4>Practice specific hanzis</h4>
+            <label for="word">Hanzi(s):</label>
+            <input id="word" name="word" placeholder="打汉字" type="text" />
+          </div>
+          <div class="separator"></div>
+          <div class="form">
+            <h4>Practice random hanzis</h4>
+            <label for="hsk">HSK Level:</label>
+            <input
+              id="hsk"
+              name="hsk"
+              placeholder="1-7"
+              step="1"
+              min="1"
+              max="7"
+              type="number"
+            />
+            <div>
+              <input
+                id="traditional"
+                name="traditional"
+                value="1"
+                type="checkbox"
+              />
+              <label for="traditional">Write traditional characters</label>
+            </div>
+            <div>
+              <input
+                id="simultaneous"
+                name="simultaneous"
+                value="1"
+                type="checkbox"
+              />
+              <label for="simultaneous">Play characters simultaneously</label>
+            </div>
+          </div>
         </div>
         <input type="submit" value="Start studying" />
       </form>
