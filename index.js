@@ -1,6 +1,5 @@
 const express = require("express");
 const fs = require("fs");
-const HanziWriter = require("hanzi-writer");
 const app = express();
 const mustacheExpress = require("mustache-express");
 
